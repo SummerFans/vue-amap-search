@@ -17,6 +17,7 @@ interface props{
   autoConfirm: boolean;
   useClick: boolean;
   icon: string;
+  showSearch: boolean;
 }
 
 /**
@@ -96,6 +97,11 @@ export default {
       type: Boolean,
       default: false,
       required: false
+    },
+    showSearch:{
+      type: Boolean,
+      default: false,
+      required: false,
     }
   },
   methods:{

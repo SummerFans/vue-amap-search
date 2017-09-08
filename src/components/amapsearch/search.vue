@@ -1,7 +1,7 @@
 <template>
   <div class="amap-search__container" :style="{width: width + 'px',height: height + 'px'}">
     <!--自动输入框-->
-    <div class="amap-search__autocomplate">
+    <div class="amap-search__autocomplate" v-show="showSearch">
         <input type="text" v-model="autocomplateInput" id="autocomplate-input" 
         @keyup.enter="searchDefaultSuggestion" autocomplete="off"
         placeholder="输入详细地址,越详细定位越精准"/>
