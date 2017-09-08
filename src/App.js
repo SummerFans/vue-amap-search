@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * dev 使用, 直接修改源文件
  */
@@ -6,7 +7,6 @@ var search_vue_1 = require("./components/amapsearch/search.vue");
 var MrRight = {
     name: 'Mr. Right'
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     name: 'app',
     data: function () {

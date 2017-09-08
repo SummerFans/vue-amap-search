@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.amapmixinApp = {
     data: function () {
         return {
@@ -21,20 +22,26 @@ exports.amapmixinApp = {
         };
     },
     mounted: function () {
-        console.log('amapmixin mounted');
+        // console.log('amapmixin mounted');
     },
     methods: {
         /**
          * 初始化amap对象
          */
-        initAmap: function (domContainer, mapCenter) {
+        initAmap: function (domContainer, mapCenter, icon) {
             var vm = this;
             vm.map = new AMap.Map(domContainer, {
                 resizeEnable: true,
-                zoom: 12,
+                zoom: 14,
                 center: mapCenter
             });
-            AMap.plugin(['AMap.ToolBar', 'AMap.Scale'], function () {
+            vm.marker = new AMap.Marker({
+                position: mapCenter,//marker所在的位置
+                map: vm.map,//创建时直接赋予map属性
+                icon: icon
+            });
+            vm.marker.setMap(vm.map);
+            AMap.plugin(['AMap.Geocoder','AMap.ToolBar', 'AMap.Scale'], function () {
                 vm.map.addControl(new AMap.ToolBar());
                 vm.map.addControl(new AMap.Scale());
             });
@@ -52,9 +59,9 @@ exports.amapmixinApp = {
          * @param {string} cityname
          */
         initAutocomplate: function (domContainer, pageSize, cityname) {
-            console.log('cityname', cityname);
+            // console.log('cityname', cityname);
             var vm = this;
-            AMap.plugin(['AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
+            AMap.plugin(['AMap.Geocoder','AMap.Autocomplete', 'AMap.PlaceSearch'], function () {
                 var autoOptions = {
                     city: cityname && '',
                     input: domContainer //使用联想输入的input的id

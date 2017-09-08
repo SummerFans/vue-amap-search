@@ -60,7 +60,7 @@ export type amapType = {
    * @param {string} domContainer 
    * @param {polygonPoint} mapCenter 
    */
-  initAmap(domContainer:string,mapCenter:polygonPoint):void;
+  initAmap(domContainer:string,mapCenter:polygonPoint, icon?: string):void;
 
   /**
    * 初始化自动完成输入框
@@ -108,8 +108,8 @@ export type location = {
     lng: number
 }
 
-type polygonPoint = number[];
 
+type polygonPoint = number[];
 
 export var amapmixinApp = {
     data(){
@@ -133,13 +133,13 @@ export var amapmixinApp = {
       }
     },
     mounted() {
-        console.log('amapmixin mounted');
+        // console.log('amapmixin mounted');
     },
     methods: {
         /**
          * 初始化amap对象
          */
-        initAmap(domContainer:any, mapCenter:polygonPoint) {
+        initAmap(domContainer:any, mapCenter:polygonPoint, icon?:String) {
             let vm = this;
             vm.map = new AMap.Map(domContainer, {
                 resizeEnable: true,
