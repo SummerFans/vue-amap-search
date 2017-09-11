@@ -1,9 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var vue_1 = require("vue");
 var App_vue_1 = require("./App.vue");
-new vue_1.default({
+var vm = new vue_1["default"]({
     el: '#app',
-    components: { App: App_vue_1.default },
-    render: function (h) { return h(App_vue_1.default); }
+    components: { App },
+    render: function (h) { return h(App_vue_1["default"]); }
 });

@@ -18,6 +18,7 @@ interface props{
   useClick: boolean;
   icon: string;
   showSearch: boolean;
+  selectType: String;
 }
 
 /**
@@ -52,17 +53,21 @@ export default {
         let loc = JSON.stringify(this.selectedPoi);
         this.$emit('pickedLocation',JSON.parse(loc));
       }
+    },
+    selectType: function(this:thisVue, val:any, oldVal:any){
+      console.log('ss');
+      this.selectPeriphery(this.selectType,[this.defaultLat,this.defaultLng],'上海', 10);
     }
   },
   props:{
     defaultLng: {
       type: Number,
-      default: 39.90923,
+      default: 31.230489,
       required: false
     },
     defaultLat: {
       type: Number,
-      default: 116.397428,
+      default: 121.473669, //[31.230489,121.473669]
       required: false
     },
     defaultCity:{
@@ -101,6 +106,11 @@ export default {
     showSearch:{
       type: Boolean,
       default: false,
+      required: false,
+    },
+    selectType: {
+      type: String,
+      default: '',
       required: false,
     }
   },

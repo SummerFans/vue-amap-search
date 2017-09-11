@@ -27,8 +27,15 @@ export default {
       userInput: '',
       pickedLocation: {
         location:{}
-      }
+      },
+      selectType:''
     }
+  },
+  mounted() {
+    let self = this;
+    setTimeout(()=>{
+      self.selectType = '交通'
+    },3000)
   },
   methods:{
     handleUserInput: function(_input:string){
@@ -36,6 +43,9 @@ export default {
     },
     handlePickedLocation: function(location: any){
       this.pickedLocation = location;
+    },
+    clickSelect(v:string){
+      this.selectType = v
     }
   },
   components:{

@@ -227,5 +227,29 @@ exports.amapmixinApp = {
                 });
             });
         },
+        selectPeriphery(selectType, mapCenter, cityname, pageSize){
+          console.log('ss');
+          const vm = this;
+          vm.placeSearch = new AMap.PlaceSearch({
+            city: cityname,
+            type: selectType,
+            map: vm.map,
+            pageSize:pageSize || 10
+          });
+          vm.placeSearch.searchNearBy("", mapCenter, 1000, function(status, result) {
+            console.log(result);
+            if (status === 'complete' && result.info === 'OK') {
+              // 清除所有覆盖物
+              vm.map.clearMap();
+              // 绘制自己的坐标点
+              vm.renderSearchMarker(result.poiList.pois);
+              // 地图自适应显示
+              vm.map.setFitView();
+              vm.map.setZoom(16);
+              // 清除搜索结果
+              vm.placeSearch.clear();
+            }
+          });
+        },    
     }
 };

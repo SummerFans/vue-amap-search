@@ -6,10 +6,8 @@
       :useClick="true"
       :width="800"
       :height="340"
-      @userInput="handleUserInput"
-      @pickedLocation="handlePickedLocation">
+      :selectType="selectType">
     </amap-search>
-    
     <h3>高德gcj02 坐标系22</h3>
     <p>输入出现搜索结果, 地图上的点可以拖动, 拖动后的结果信息会出现在下方</p>
     <p><code>用户输入 </code> {{userInput}}</p>
