@@ -223,7 +223,7 @@ exports.amapmixinApp = {
                     var county = result.districtList[0];
                     // 设置地图中心点
                     vm.map.setCenter(county.center);
-                    vm.map.setZoom(12);
+                    vm.map.setZoom(14);
                     callback(county);
                 });
             });
@@ -245,7 +245,7 @@ exports.amapmixinApp = {
               vm.renderSearchMarker(result.poiList.pois);
               // 地图自适应显示
               vm.map.setFitView();
-              vm.map.setZoom(16);
+              vm.map.setZoom(15);
               // 清除搜索结果
               vm.placeSearch.clear();
             }
