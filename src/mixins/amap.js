@@ -69,7 +69,8 @@ exports.amapmixinApp = {
                 vm.autocomplete = new AMap.Autocomplete(autoOptions);
                 vm.placeSearch = new AMap.PlaceSearch({
                     city: cityname,
-                    map: '',
+                    map: vm.map,
+                    // panel: "result",
                     pageSize: pageSize
                 });
                 AMap.event.addListener(vm.autocomplete, "select", function (e) {
@@ -84,7 +85,7 @@ exports.amapmixinApp = {
                             vm.renderSearchMarker(result.poiList.pois);
                             // 地图自适应显示
                             vm.map.setFitView();
-                            vm.map.setZoom(14);
+                            vm.map.setZoom(16);
                             // 清除搜索结果
                             vm.placeSearch.clear();
                         }
@@ -167,7 +168,7 @@ exports.amapmixinApp = {
                     infoWindow.open(vm.map, e.target.getPosition());
                 });
                 // 触发一次click显示
-                marker.emit('click', { target: marker });
+                // marker.emit('click', { target: marker });
                 // 因为会自动触发 拖拽之后也会触发 所以在这里做检查
                 // vm.setMarkerLocation(poi);
                 marker.on('dragstart', function (e) {
@@ -228,16 +229,15 @@ exports.amapmixinApp = {
             });
         },
         selectPeriphery(selectType, mapCenter, cityname, pageSize){
-          console.log('ss');
           const vm = this;
           vm.placeSearch = new AMap.PlaceSearch({
             city: cityname,
             type: selectType,
             map: vm.map,
+            // panel: "result",
             pageSize:pageSize || 10
           });
           vm.placeSearch.searchNearBy("", mapCenter, 1000, function(status, result) {
-            console.log(result);
             if (status === 'complete' && result.info === 'OK') {
               // 清除所有覆盖物
               vm.map.clearMap();

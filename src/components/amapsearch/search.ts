@@ -55,7 +55,6 @@ export default {
       }
     },
     selectType: function(this:thisVue, val:any, oldVal:any){
-      console.log('ss');
       this.selectPeriphery(this.selectType,[this.defaultLat,this.defaultLng],'上海', 10);
     }
   },

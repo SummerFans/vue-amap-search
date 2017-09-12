@@ -172,7 +172,6 @@ export var amapmixinApp = {
          * @param {string} cityname
          */
         initAutocomplate(domContainer:string, pageSize: number, cityname?: string) {
-            console.log('cityname',cityname);
             let vm = this;
 
             AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch'],function(){
@@ -183,7 +182,8 @@ export var amapmixinApp = {
                 vm.autocomplete = new AMap.Autocomplete(autoOptions);
                 vm.placeSearch = new AMap.PlaceSearch({
                     city: cityname,
-                    map: '',
+                    map: vm.map,
+                    // panel: "result",
                     pageSize: pageSize
                 })
                 AMap.event.addListener(vm.autocomplete, "select", function(e: any){
@@ -291,7 +291,7 @@ export var amapmixinApp = {
                     infoWindow.open(vm.map, e.target.getPosition());
                 });
                 // 触发一次click显示
-                marker.emit('click',{target: marker});
+                // marker.emit('click',{target: marker});
 
                 // 因为会自动触发 拖拽之后也会触发 所以在这里做检查
                 // vm.setMarkerLocation(poi);
@@ -361,10 +361,10 @@ export var amapmixinApp = {
             city: cityname || '上海',
             type:selectType,
             map: vm.map,
+            // panel: "result",
             pageSize:pageSize
           });
           vm.placeSearch.searchNearBy("", mapCenter, 1000, function(status:string, result:any) {
-            console.log(result);
             if (status === 'complete' && result.info === 'OK') {
               // 清除所有覆盖物
               vm.map.clearMap();

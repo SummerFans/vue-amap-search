@@ -158,9 +158,6 @@ a.amap-search__confirm-btn{
     height: 24px;
     line-height: 24px;
     padding-left: 15px;
-    .auto-item-span{
-      // 提示灰色文字
-    }
   }
 }
 
