@@ -27,9 +27,10 @@ interface props{
  * @interface methods
  */
 interface methods{
+  createScript: Function,
 }
 
-type thisVue = props & Vue & amapType;
+type thisVue = props & methods & Vue & amapType;
 // console.log(amapmixinApp);
 export default {
   name: 'amapSearch',
@@ -120,31 +121,37 @@ export default {
         let loc = JSON.stringify(this.selectedPoi);
         this.$emit('pickedLocation',JSON.parse(loc));
       }
+    },
+    createScript(cb: Function) {
+      let el = document.createElement('script');
+      el.src = 'http://webapi.amap.com/maps?v=1.3&key=4773181619083227df536cc334ad7a0d';
+      el.onload = function() {
+        cb()
+      };
+      document.head.appendChild(el);
     }
   },
   mounted(this:thisVue){
     // 初始化 domId
-    this.initAmap('amap-container',[this.defaultLat, this.defaultLng], this.icon);
-
-    /**
-     * 如果不显示确定按钮, 拖到那里是哪里的话, 
-     * searchCount 默认为1
-     */
-    let searchCount = this.autoConfirm ? 1 : this.searchCount;
-
-    /**
-     * 如果支持用户点击, 点在哪里是哪里
-     * searchCount 默认为1
-     */
-    if(this.useClick){
-      this.initMouseTools();
-      searchCount = 1;
-    }
-
-    // 初始化 自动完成 domId ''代表默认全国
-    this.initAutocomplate("autocomplate-input", searchCount, this.defaultCity );
-
-
+    this.createScript(() => {
+      this.initAmap('amap-container',[this.defaultLat, this.defaultLng], this.icon);
+          /**
+           * 如果不显示确定按钮, 拖到那里是哪里的话, 
+           * searchCount 默认为1
+           */
+          let searchCount = this.autoConfirm ? 1 : this.searchCount;
+      
+          /**
+           * 如果支持用户点击, 点在哪里是哪里
+           * searchCount 默认为1
+           */
+          if(this.useClick){
+            this.initMouseTools();
+            searchCount = 1;
+          }
+          // 初始化 自动完成 domId ''代表默认全国
+          this.initAutocomplate("autocomplate-input", searchCount, this.defaultCity );
+    })
   },
   mixins:[amapmixinApp],
 }
