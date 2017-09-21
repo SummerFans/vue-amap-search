@@ -97,7 +97,9 @@ exports.default = {
           let el = document.createElement('script');
           el.src = `http://webapi.amap.com/maps?v=1.3&key=${window.amapConfig.key}`;
           el.onload = function() {
-            cb()
+            setTimeout(() => {
+              cb()
+            }, 100)
           };
           document.head.appendChild(el);
         },
