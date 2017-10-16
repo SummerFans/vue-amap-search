@@ -29,6 +29,7 @@ interface props {
  */
 interface methods {
   createScript: Function,
+  reInitAmap: Function
 }
 
 type thisVue = props & methods & Vue & amapType;
@@ -56,6 +57,7 @@ export default {
         this.$emit('pickedLocation', JSON.parse(loc));
       }
     },
+<<<<<<< HEAD
     defaultLng() {
       this.initMap();
     },
@@ -64,6 +66,13 @@ export default {
     },
     selectType: function (this: thisVue, val: any, oldVal: any) {
       this.selectPeriphery(this.selectType, [this.defaultLat, this.defaultLng], '上海', 10);
+=======
+    selectType: function(this:thisVue, val:any, oldVal:any){
+      this.selectPeriphery(this.selectType,[this.defaultLat,this.defaultLng],'上海', 10);
+    },
+    defaultLng() {
+      this.reInitAmap();
+>>>>>>> 9acaaa00e85f3ccb7ce4e31b70ddb16c21991247
     }
   },
   props: {
@@ -130,13 +139,20 @@ export default {
       }
     },
     createScript(cb: Function) {
+      if (!window['amapConfig'] || !window['amapConfig']['key']) return console.error('No configuration for amap')
       let el = document.createElement('script');
+<<<<<<< HEAD
       el.src = 'http://webapi.amap.com/maps?v=1.3&key=4773181619083227df536cc334ad7a0d';
       el.onload = function () {
+=======
+      el.src = `http://webapi.amap.com/maps?v=1.3&key=${window['amapConfig']['key']}`;
+      el.onload = function() {
+>>>>>>> 9acaaa00e85f3ccb7ce4e31b70ddb16c21991247
         cb()
       };
       document.head.appendChild(el);
     },
+<<<<<<< HEAD
     initMap() {
       if(!this.defaultLat || !this.defaultLng) return;
       this.initAmap('amap-container', [this.defaultLat, this.defaultLng], this.icon);
@@ -156,13 +172,39 @@ export default {
       }
       // 初始化 自动完成 domId ''代表默认全国
       this.initAutocomplate("autocomplate-input", searchCount, this.defaultCity);
+=======
+    reInitAmap() {
+      this.createScript(() => {
+        this.initAmap('amap-container',[this.defaultLat, this.defaultLng], this.icon);
+            /**
+             * 如果不显示确定按钮, 拖到那里是哪里的话, 
+             * searchCount 默认为1
+             */
+            let searchCount = this.autoConfirm ? 1 : this.searchCount;
+        
+            /**
+             * 如果支持用户点击, 点在哪里是哪里
+             * searchCount 默认为1
+             */
+            if(this.useClick){
+              this.initMouseTools();
+              searchCount = 1;
+            }
+            // 初始化 自动完成 domId ''代表默认全国
+            this.initAutocomplate("autocomplate-input", searchCount, this.defaultCity );
+      })
+>>>>>>> 9acaaa00e85f3ccb7ce4e31b70ddb16c21991247
     }
   },
   mounted(this: thisVue) {
     // 初始化 domId
+<<<<<<< HEAD
     this.createScript(() => {
       this.initMap();
     })
+=======
+    this.reInitAmap();
+>>>>>>> 9acaaa00e85f3ccb7ce4e31b70ddb16c21991247
   },
   mixins: [amapmixinApp],
 }
